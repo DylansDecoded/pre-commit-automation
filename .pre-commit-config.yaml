@@ -5,34 +5,35 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
+        files: \.py$
       - id: ruff-format
+        files: \.py$
 
   # SQL formatting for Databricks
   - repo: https://github.com/sqlfluff/sqlfluff
     rev: 3.3.0
     hooks:
       - id: sqlfluff-fix
+        files: \.sql$
 
-  # YAML formatting and linting (all-in-one) - includes bogiefile
+  # YAML formatting - only workflows/*, config/* directories and bogiefile
   - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
     rev: v2.14.0
     hooks:
       - id: pretty-format-yaml
         args: [--autofix, --indent, "2"]
-        files: \.(yaml|yml)$|^bogiefile$|/bogiefile$
-        types_or: [yaml, text]
-        exclude: ^\.pre-commit-config\.yaml$
+        files: (^workflows/.*\.(yaml|yml)$|^config/.*\.(yaml|yml)$|^bogiefile$|/bogiefile$)
 
-  # Basic file hygiene
+  # Basic file hygiene - scoped to relevant files only
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
+        files: \.(py|sql|yaml|yml)$|^bogiefile$|/bogiefile$
       - id: end-of-file-fixer
+        files: \.(py|sql|yaml|yml)$|^bogiefile$|/bogiefile$
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: check-yaml
-        files: \.(yaml|yml)$|^bogiefile$|/bogiefile$
-        types_or: [yaml, text]
-        exclude: ^\.pre-commit-config\.yaml$
+        files: (^workflows/.*\.(yaml|yml)$|^config/.*\.(yaml|yml)$|^bogiefile$|/bogiefile$)
       - id: check-added-large-files
