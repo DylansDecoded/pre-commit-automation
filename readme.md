@@ -35,7 +35,7 @@ This setup intentionally uses **lenient rules** to focus on major errors only:
 
 ## File Structure
 ```
-your-repo/
+osdi-backend-repo/
 ├── .pre-commit-config.yaml   # Pre-commit hook configuration
 ├── ruff.toml                 # Python linting/formatting rules
 ├── .sqlfluff                 # SQL formatting rules (Databricks)
@@ -43,5 +43,14 @@ your-repo/
 ├── Pipfile.lock              # Locked dependency versions
 ├── bogiefile                 # YAML-formatted config (no extension)
 └── README.md                 # This file
+```
+
+#!/usr/bin/env bash
+# Installed by pre-commit
+
+# This hook is invoked by git-commit
+if [ -x "$HOME/.cache/pre-commit/..." ]; then
+    exec /path/to/pipenv/run pre-commit run --hook-stage commit
+fi
 
 
