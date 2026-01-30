@@ -1,0 +1,58 @@
+# ruff.toml
+
+# Ruff configuration for lenient, auto-fixing Python linting and formatting
+
+[lint]
+# Select rule categories - lenient mode focusing on major errors
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes (undefined names, unused imports)
+    "I",   # isort (import sorting)
+]
+
+# Ignore specific rules that are too strict for lenient mode
+ignore = [
+    "E501",  # Line too long (let formatter handle this)
+]
+
+# Auto-fix compatible rules when possible
+fixable = ["ALL"]
+unfixable = []
+
+# Exclude common directories
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+    "*.egg-info",
+]
+
+# Set line length (common for data engineering projects)
+line-length = 120
+
+[lint.per-file-ignores]
+# Ignore unused imports in __init__.py files
+"__init__.py" = ["F401"]
+
+[lint.isort]
+# Configure import sorting for Databricks/PySpark projects
+known-first-party = []  # Add your internal package names here if needed
+known-third-party = ["pyspark", "databricks", "delta"]
+
+# Use two sections: standard library and everything else
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[format]
+# Ruff formatter settings (Black-compatible)
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+# Databricks notebooks often use docstrings for markdown
+docstring-code-format = false

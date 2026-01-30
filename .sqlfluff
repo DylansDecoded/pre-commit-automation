@@ -1,0 +1,16 @@
+[sqlfluff]
+dialect = databricks
+templater = raw
+max_line_length = 120
+
+# Lenient mode - only major formatting issues
+[sqlfluff:rules]
+# Enforce basic spacing
+L001.enable = True  # Unnecessary trailing whitespace
+L003.enable = True  # Indentation not consistent
+L006.enable = True  # Missing whitespace
+L019.enable = True  # Commas should be trailing
+
+# Disable stricter rules for lenient approach
+L010.enable = False  # Capitalization
+L014.enable = False  # Unquoted identifiers

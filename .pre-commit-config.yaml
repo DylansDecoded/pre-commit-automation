@@ -1,0 +1,38 @@
+repos:
+  # Python formatting and linting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # SQL formatting for Databricks
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 3.3.0
+    hooks:
+      - id: sqlfluff-fix
+
+  # YAML formatting and linting (all-in-one) - includes bogiefile
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.14.0
+    hooks:
+      - id: pretty-format-yaml
+        args: [--autofix, --indent, "2"]
+        files: \.(yaml|yml)$|^bogiefile$|/bogiefile$
+        types_or: [yaml, text]
+        exclude: ^\.pre-commit-config\.yaml$
+
+  # Basic file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-yaml
+        files: \.(yaml|yml)$|^bogiefile$|/bogiefile$
+        types_or: [yaml, text]
+        exclude: ^\.pre-commit-config\.yaml$
+      - id: check-added-large-files
